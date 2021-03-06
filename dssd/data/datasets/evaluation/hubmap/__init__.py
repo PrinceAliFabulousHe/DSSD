@@ -112,4 +112,4 @@ def hubmap_evaluation(dataset, predictions, output_dir, iteration=None):
     acc_precision, acc_recall, aP = precision_at_recall(assigned, gt_boxes)
     logger = logging.getLogger("DSSD.inference")
     logger.info('{:<10}: {}'.format("Validation: mAP: ", round(aP, 3)))
-    return {"mAP@0.5": round(aP, 3)}
+    return dict(metrics={"mAP@0.5": round(aP, 3)})
