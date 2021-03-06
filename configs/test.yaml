@@ -1,0 +1,22 @@
+MODEL:
+  NUM_CLASSES: 2
+  PRIORS:
+    FEATURE_MAPS: [40, 20, 10, 5, 3, 1]
+    STRIDES: [8, 16, 32, 64, 107, 320]
+    MIN_SIZES: [21, 45, 99, 153, 207, 261]
+    MAX_SIZES: [45, 99, 153, 207, 261, 315]
+    ASPECT_RATIOS: [[1.6, 2, 3], [1.6, 2, 3], [1.6, 2, 3], [1.6, 2, 3], [1.6, 2, 3], [1.6, 2, 3]]
+    BOXES_PER_LOCATION: [8, 8, 8, 8, 8, 8]
+INPUT:
+  IMAGE_SIZE: 320
+DATASETS:
+  TRAIN: ("/content/kidney_dataset_320_6/train", )
+  TEST: ("/content/kidney_dataset_320_6/test", )
+SOLVER:
+  MAX_ITER: 100000
+  LR_STEPS: [40000, 80000]
+  GAMMA: 0.1
+  BATCH_SIZE: 16
+  LR: 1e-3
+
+OUTPUT_DIR: 'outputs/hubmap_ssd'
