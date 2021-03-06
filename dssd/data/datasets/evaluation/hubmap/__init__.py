@@ -108,8 +108,16 @@ def hubmap_evaluation(dataset, predictions, output_dir, iteration=None):
 
         img, target, index = dataset[i]
         gt_boxes.append(target['boxes'])
+
     assigned = predictions2labels(predicted_boxes, gt_boxes, iou_th=0.5, conf_th=0.01)
     acc_precision, acc_recall, aP = precision_at_recall(assigned, gt_boxes)
+    assigned = predictions2labels(predicted_boxes, gt_boxes, iou_th=0.5, conf_th=0.5)
+    precision, recall, f1 = flat_precision_recall(assigned, gt_boxes)
+
     logger = logging.getLogger("DSSD.inference")
-    logger.info('{:<10}: {}'.format("Validation: mAP: ", round(aP, 3)))
-    return dict(metrics={"mAP@0.5": round(aP, 3)})
+    logger.info('Validation: mAP: {0:.3f} Precision: {1:.3f} Recall: {2:.3f} F1: {0:.3f}'.format(aP, precision, recall, f1))
+    metric = {"mAP@0.5": round(aP, 3),
+              "Precision": round(precision, 3),
+              "Recall": round(recall, 3),
+              "F1": round(f1, 3)}
+    return dict(metrics=metric)
