@@ -1,12 +1,16 @@
 MODEL:
   NUM_CLASSES: 2
   PRIORS:
-    FEATURE_MAPS: [40, 20, 10, 5, 3, 1]
-    STRIDES: [8, 16, 32, 64, 107, 320]
-    MIN_SIZES: [15, 45, 75, 105, 135, 165]
-    MAX_SIZES: [45, 75, 105, 135, 165, 195]
-    ASPECT_RATIOS: [[0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5]]
-    BOXES_PER_LOCATION: [8, 8, 8, 8, 8, 8]
+    FEATURE_MAPS: [64, 32, 16, 8, 4, 2, 1]
+    STRIDES: [8, 16, 32, 64, 128, 256, 512]
+    MIN_SIZES: [15, 45, 75, 105, 135, 165, 200]
+    MAX_SIZES: [45, 75, 105, 135, 165, 195, 250]
+    ASPECT_RATIOS: [[0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5], [0.5, 1, 1.5]]
+    BOXES_PER_LOCATION: [8, 8, 8, 8, 8, 8,8]
+  BACKBONE:
+    NAME: 'resnet50'
+    OUT_CHANNELS: (512, 1024, 1024, 1024, 1024, 1024)
+    PRETRAINED: True
 INPUT:
   IMAGE_SIZE: 512
   PIXEL_MEAN: [170, 109, 159]
@@ -14,7 +18,7 @@ DATASETS:
   TRAIN: ("/content/kidney_dataset_512_6/train", )
   TEST: ("/content/kidney_dataset_512_6/test", )
 SOLVER:
-  MAX_ITER: 10000
+  MAX_ITER: 10
   LR_STEPS: [3000, 6000]
   GAMMA: 0.1
   BATCH_SIZE: 16
